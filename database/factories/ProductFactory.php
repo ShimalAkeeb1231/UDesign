@@ -18,10 +18,10 @@ class ProductFactory extends Factory
         $category_id = Category::inRandomOrder()->value('id');
 
         return [
-            // 'name' => $this->faker->word(), // Use word instead of name for product names
-            // 'description' => $this->faker->sentence(10), // Use sentence for more natural text
-            // 'price' => $this->faker->randomFloat(2, 1, 1000),
-            // 'category_id' => $category_id, // Assign the random category ID
+            'name' => $this->faker->word(), // Use word instead of name for product names
+            'description' => $this->faker->sentence(10), // Use sentence for more natural text
+            'price' => $this->faker->randomFloat(2, 1, 1000),
+            'category_id' => $category_id, // Assign the random category ID
             
             
         ];

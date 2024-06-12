@@ -21,4 +21,11 @@ class CustomerProfile extends Model
         'phone_number',
         'email'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    
 }

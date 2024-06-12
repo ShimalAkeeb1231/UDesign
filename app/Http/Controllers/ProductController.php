@@ -100,5 +100,11 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Product deleted successfully!');
     }
+
+    public function show($id)
+{
+    $product = Product::findOrFail($id);
+    return view('productDetail', compact('product'));
+}
 }
 

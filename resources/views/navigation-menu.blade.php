@@ -63,6 +63,11 @@
                                 Order
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('home') }}" class="block px-4 py-2 mt-2 text-sm font-semibold bg-gray-900 rounded hover:bg-gray-700">
+                                Home
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

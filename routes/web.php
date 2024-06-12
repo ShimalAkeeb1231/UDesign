@@ -9,11 +9,17 @@ use App\Http\Controllers\SalesManagerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CuserController;
+use App\Http\Controllers\cartController;
+use App\Http\Controllers\CheckoutController;
+
 // Home page
 Route::get('/', function () {
     $products = Product::all(); // Fetch all products from the database
     return view('home', compact('products'));
 })->name('home');
+
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
@@ -28,8 +34,24 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard')->middleware('role:SuperAdministrator,salesManager');
 
+    //Cart 
+    Route::post('/cart/add/{id}', [cartController::class, 'add'])->name('cart.add')->middleware('auth');
+    Route::get('/cart', [cartController::class, 'index'])->name('cart.index')->middleware('auth');
+    Route::patch('/cart/update/{id}', [cartController::class, 'update'])->name('cart.update')->middleware('auth');
+    Route::delete('/cart/remove/{id}', [cartController::class, 'destroy'])->name('cart.remove')->middleware('auth');
+
+    Route::patch('/cart/update-address', [App\Http\Controllers\cartController::class, 'updateAddress'])->name('cart.updateAddress');
+
+
+
+    //Checkout
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
     // Product CRUD routes
     Route::resource('product', ProductController::class);
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+  
 
     // Customer routes accessible only to customers
     Route::middleware(['role:Customer'])->group(function () {
